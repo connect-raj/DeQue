@@ -1,0 +1,241 @@
+@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Reem Kufi";
+}
+body {
+  overflow-x: hidden;
+  background-image: url("/static/images/about-bg.jpg");
+  background-position: center;
+  background-size: cover;
+}
+::-webkit-scrollbar {
+  background: none;
+  display: none;
+}
+a {
+  text-decoration: none;
+}
+header {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+}
+header .login-register {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transition: all 2s ease;
+}
+header .login-register .signs {
+  display: flex;
+  gap: 10px;
+}
+header .login-register .signs i {
+  color: #d9ba85;
+}
+header .login-register .sign-container {
+  display: flex;
+  gap: 25px;
+}
+.normal {
+  background-color: rgba(0, 0, 0, 0.51);
+  width: 100vw;
+  padding: 1%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+}
+nav .logo {
+  color: white;
+  font-size: 32px;
+}
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+nav ul li a {
+  color: white;
+  font-size: 20px;
+}
+nav ul li a:hover {
+  color: #d9ba85;
+}
+nav .button a {
+  width: 100%;
+  background-color: transparent;
+  color: #d9ba85;
+  border: 1px solid #d9ba85;
+  padding: 10px 20px;
+  border-radius: 5px;
+  height: fit-content;
+  width: fit-content;
+  transition: color 2s, background-color 2s;
+}
+nav .button a:hover {
+  color: white;
+  background-color: #d9ba85;
+}
+.sign-container a {
+  color: #d9ba85;
+}
+.sign-container a:hover {
+  color: white;
+}
+.home {
+  position: relative;
+}
+.home img {
+  height: fit-content;
+  width: fit-content;
+  filter: brightness(50%);
+}
+.home .text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 40%;
+  border-right: 5px solid #d9ba85;
+  font-size: 72px;
+  width: 35%;
+  color: white;
+  left: 5%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 4s, cursor 0.4s step-end infinite alternate;
+}
+.home .text-container .partial {
+  font-size: 32px;
+  text-align: justify;
+  animation: typing 4s, cursor 0.4s step-end infinite alternate;
+}
+.home .text-container .main::after {
+  content: "DeQue";
+  color: #d9ba85;
+}
+@keyframes cursor {
+  50% {
+    border-color: transparent;
+  }
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: left;
+  padding: 5% 5% 0 5%;
+}
+.about .main {
+  display: flex;
+  gap: 5%;
+  width: 70%;
+}
+.about .main .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.about .main .text .main-text {
+  font-size: 27px;
+}
+.about .main .text .sub-text {
+  font-size: 18px;
+}
+.about .main .text .text-cards .cards {
+  display: flex;
+  gap: 5px;
+  font-size: 20px;
+}
+.about .main .text .text-cards .cards .sign i {
+  color: #d9ba85;
+}
+.about .main img {
+  max-height: 500px;
+  max-width: 500px;
+  border: 3px grey solid;
+  transition: 1s ease;
+}
+.about .main img:hover {
+  transform: scale(1.1);
+}
+.why-us {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  color: white;
+}
+.why-us .main-container {
+  padding: 5%;
+}
+.why-us .main .title {
+  text-transform: uppercase;
+  color: gainsboro;
+  font-size: 15px;
+  letter-spacing: 2px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: center;
+  column-gap: 1rem;
+}
+.why-us .main .title::after {
+  content: "";
+  height: 2px;
+  width: 100%;
+  background-color: gainsboro;
+  display: block;
+}
+.why-us .text-container .text {
+  color: #d9ba85;
+  font-size: 40px;
+}
+.why-us .cards {
+  display: flex;
+  width: 1500px;
+  margin-top: 60px;
+}
+.why-us .cards .card {
+  background-color: #1a1814;
+  margin: 0 20px;
+  width: 400px;
+  padding: 5%;
+  transition: 2s ease-in-out;
+}
+.why-us .cards .card:hover {
+  background-color: #d9ba85;
+  color: white;
+}
+.why-us .cards .card:hover .number {
+  color: white;
+}
+.why-us .cards .card .text {
+  transition: 1s ease-in-out;
+}
+.why-us .cards .card:hover .text {
+  transform: translateY(-24px);
+}
+.why-us .cards .card .number {
+  color: #d9ba85;
+  font-size: 30px;
+}
+.why-us .cards .card .title {
+  font-size: 34px;
+}
+.why-us .cards .card .subtitle {
+  font-size: 18px;
+}

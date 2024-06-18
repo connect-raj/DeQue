@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>{{request.user}}'s cart</title>
+  </head>
+  <body>
+    <table class="cart-container">
+      <tr>
+        <td>SR. NO.</td>
+        <td>Name</td>
+        <td>Quantity</td>
+      </tr>
+      {% for data, cart_data in context_data %}
+      <tr>
+        <td>
+          {{forloop.counter}}
+          <input
+            type="hidden"
+            class="product_id"
+            name="product_id"
+            value="{{cart_data.product_id}}"
+          />
+        </td>
+        <td>{{data.cuisine_name}}</td>
+        <td>
+          <i class="fa-solid fa-minus"></i>
+          <div class="quantity">{{cart_data.quantity}}</div>
+          <i class="fa-solid fa-plus"></i>
+        </td>
+        <td>
+          <div class="remove"><i class="fa-solid fa-xmark"></i></div>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <footer>
+      <a href="checkout/">Checkout</a>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(document).on("click", ".fa-plus", function () {
+          var $quantityDiv = $(this).siblings(".quantity");
+          var quantityText = $quantityDiv.text();
+          var quantity = parseInt(quantityText, 10);
+          console.log(quantity);
+          quantity = quantity + 1;
+          $quantityDiv.text(quantity);
+          $.ajax({
+            url: "/update-cart/",
+            type: "POST",
+            data: {
+              product_id: $(this).closest("tr").find(".product_id").val(),
+              quantity: quantity,
+            },
+          });
+        });
+
+        $(document).on("click", ".fa-minus", function () {
+          var $quantityDiv = $(this).siblings(".quantity");
+          var quantityText = $quantityDiv.text();
+          var quantity = parseInt(quantityText, 10);
+          console.log(quantity);
+          if (quantity > 0) {
+            quantity = quantity - 1;
+            $quantityDiv.text(quantity);
+          } else {
+            $(document).on("click", ".remove", function () {
+              $(this).closest("tr").remove();
+            });
+          }
+          $.ajax({
+            url: "/update-cart/",
+            type: "POST",
+            data: {
+              product_id: $(this).closest("tr").find(".product_id").val(),
+              quantity: quantity,
+            },
+          });
+        });
+
+        $(document).on("click", ".remove", function () {
+          $(this).closest("tr").remove();
+          $.ajax({
+            url: "/remove-cart/",
+            type: "POST",
+            data: {
+              product_id: $(this).closest("tr").find(".product_id").val(),
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

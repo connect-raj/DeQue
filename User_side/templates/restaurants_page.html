@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/restaurants_page.css" />
+  </head>
+  <body onload="api_fetch()">
+    <header>
+      <div class="login-register">
+        <div class="signs">
+          <div class="mobile">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+          <div class="clock">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="sign-container">
+          <div class="login">
+            <a href="/logout">logout</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="sign-container">
+          <div class="signup">
+            <a href="/register">signup</a>
+          </div>
+          <div class="login">
+            <a href="/login">login</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <nav class="normal">
+        <div class="logo">DEQUE</div>
+        <ul class="nav-menu">
+          <li class="items"><a href="/">Home</a></li>
+          <li class="items"><a href="/about">About</a></li>
+          <li class="items">
+            <a href="/restaurants" class="active">Restaurants</a>
+          </li>
+          <li class="items"><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="button">
+          <a href="/restaurants" class="book-a-table"> Book a table </a>
+        </div>
+      </nav>
+    </header>
+    <div class="restuarant-list"></div>
+    <script src="/static/js/restaurants_page.js"></script>
+    <script>
+      const api_fetch = () => {
+        const tag = document.querySelector(".restuarant-list");
+
+        fetch("/api/get-restaurants/")
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            let data_json = data,
+              row_length = data_json.length;
+            console.log(data_json);
+            let html = ``;
+
+            for (var i = 0; i < row_length; i++) {
+              console.log(data_json[i]["restaurant_name"]);
+              console.log(data_json[i]["restaurant_image"]);
+              if (data_json[i]["restaurant_status"] == "open") {
+                html += `
+                            <div class="card">
+                              <div class="image">
+                                <img src="${data_json[i]["restaurant_image"]}" width="200px" height="100px">
+                              </div>
+                              <div class="Name">
+                                ${data_json[i]["restaurant_name"]}
+                              </div>
+                              <div class="button">
+                                <a href="/restaurants/${data_json[i]["restaurant_name"]}">view more</a>  
+                              </div>
+                            </div>
+                            `;
+              }
+            }
+            document.querySelector(".restuarant-list").innerHTML = html;
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Reem Kufi";
+}
+body {
+  overflow-x: hidden;
+  /* background-image: url("/static/images/about-bg.jpg"); */
+  background-position: center;
+  background-size: cover;
+}
+::-webkit-scrollbar {
+  background: none;
+  display: none;
+}
+a {
+  text-decoration: none;
+}
+header {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+}
+header .login-register {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transition: all 2s ease;
+}
+header .login-register .signs {
+  display: flex;
+  gap: 10px;
+}
+header .login-register .signs i {
+  color: #d9ba85;
+}
+header .login-register .sign-container {
+  display: flex;
+  gap: 25px;
+}
+.normal {
+  background-color: rgba(0, 0, 0, 0.51);
+  width: 100vw;
+  padding: 1%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+}
+nav .logo {
+  color: white;
+  font-size: 32px;
+}
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+nav ul li a {
+  color: white;
+  font-size: 20px;
+}
+nav ul li a:hover {
+  color: #d9ba85;
+}
+nav .button a {
+  width: 100%;
+  background-color: transparent;
+  color: #d9ba85;
+  border: 1px solid #d9ba85;
+  padding: 10px 20px;
+  border-radius: 5px;
+  height: fit-content;
+  width: fit-content;
+  transition: color 2s, background-color 2s;
+}
+nav .button a:hover {
+  color: white;
+  background-color: #d9ba85;
+}
+.sign-container a {
+  color: #d9ba85;
+}
+.sign-container a:hover {
+  color: white;
+}
+.active {
+  color: #d9ba85 !important;
+}
+body {
+  background-color: gainsboro;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  margin-top: 7%;
+  background-color: #fff;
+}
+.container .img img {
+  height: 400px;
+  border-radius: 0.25rem;
+  box-shadow: 2px 2px 7px black;
+}
+.container .booking-button a {
+  background-color: black;
+  color: white;
+  padding: 2% 5%;
+  border-radius: 0.25rem;
+}

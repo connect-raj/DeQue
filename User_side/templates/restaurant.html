@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ queryset.restaurant_name }}</title>
+    <link rel="stylesheet" href="/static/css/restaurant.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="login-register">
+        <div class="signs">
+          <div class="mobile">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+          <div class="clock">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="sign-container">
+          <div class="login">
+            <a href="/logout">logout</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="sign-container">
+          <div class="signup">
+            <a href="/register">signup</a>
+          </div>
+          <div class="login">
+            <a href="/login">login</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <nav class="normal">
+        <div class="logo">DEQUE</div>
+        <ul class="nav-menu">
+          <li class="items"><a href="/home">Home</a></li>
+          <li class="items"><a href="/about">About</a></li>
+          <li class="items">
+            <a class="active" href="/restaurants">Restaurants</a>
+          </li>
+          <li class="items"><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="button">
+          <a href="#" class="book-a-table"> Book a table </a>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="img">
+        <img src="/media/{{queryset.restaurant_image}}" alt="" />
+      </div>
+      <div class="name">{{queryset.restaurant_name}}</div>
+      <div class="phone-number">{{queryset.restaurant_phone_number}}</div>
+      <div class="address">
+        <i class="fa-solid fa-location-dot"></i>{{queryset.restaurant_address}}
+      </div>
+      <div class="price-approx">
+        <i class="fa-solid fa-coins"></i>{{queryset.restaurant_price_approx}}
+      </div>
+      <div class="booking-button">
+        <a href="/restaurants/{{queryset.restaurant_name}}/tables">book</a>
+        <!-- <a href="/api/fetch-tables/{{queryset.restaurant_name}}">Book</a> -->
+      </div>
+    </div>
+  </body>
+</html>

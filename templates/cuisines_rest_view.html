@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cuisine's</title>
+    <!-- bootstrap links -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body onload="fetch_cuisines()">
+    <nav class="navbar navbar-expand-lg bg-dark mb-3" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/admin-rest/home/"
+          >DeQue-Restaurant-Admin</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/admin-rest/home/"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin-rest/cuisines/"
+                >Cuisines'</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin-rest/tables/">Tables'</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="cuisines_list"></div>
+    <div class="add-more">
+      <a class="btn btn-danger" href="/admin-rest/cuisines/add">Add Cuisine</a>
+    </div>
+    <script>
+      const fetch_cuisines = () => {
+        let data_json,
+          row_length = 0;
+        fetch("/api/get-cuisines/")
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            data_json = data;
+            row_length = data_json.length;
+            var table = `<table class="table table-hover" border="5">
+              <tr>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Price</td>
+                <td>Image</td>
+                <td>Status</td>
+                <td>Action's</td>
+              </tr>
+              `;
+            for (var row = 0; row < row_length; row++) {
+              table += `<tr>`;
+              for (var col = 0; col < 1; col++) {
+                table += `<td>${data_json[row]["cuisine_name"]}</td>`;
+                table += `<td>${data_json[row]["cuisine_type"]}</td>`;
+                table += `<td>${data_json[row]["cuisine_price"]}</td>`;
+                table += `<td><img src="${data_json[row]["cuisine_image"]}" width="100px" height="100px" /></td>`;
+                table += `<td>${data_json[row]["cuisine_status"]}</td>`;
+                if (data_json[row]["cuisine_status"] == "active") {
+                  table += `<td><a href="InActivate/${data_json[row]["id"]}" class="btn btn-danger">DeActivate</a>
+                        <a href="update/${data_json[row]["id"]}" class="btn btn-danger">Update</a>
+                    </td>`;
+                } else {
+                  table += `<td><a href="Activate/${data_json[row]["id"]}" class="btn btn-danger">Active</a>
+                        <a href="update/${data_json[row]["id"]}" class="btn btn-danger">Update</a>
+                    </td>`;
+                }
+              }
+            }
+            table += `</table>`;
+
+            document.querySelector(".cuisines_list").innerHTML = table;
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+        console.log(row_length, data_json);
+      };
+    </script>
+  </body>
+  <style>
+    /* body {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 0 50%;
+    } */
+    form {
+      margin: auto;
+      width: 30%;
+      padding: 3%;
+      border: 1px solid black;
+    }
+  </style>
+</html>

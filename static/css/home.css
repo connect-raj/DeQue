@@ -39,6 +39,10 @@ header .login-register .sign-container {
   display: flex;
   gap: 25px;
 }
+header .login-register .sign-container .login{
+  display: flex;
+  gap: 20%;
+}
 .normal {
   background-color: rgba(0, 0, 0, 0.51);
   width: 100vw;

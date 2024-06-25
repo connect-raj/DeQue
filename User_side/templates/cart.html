@@ -13,38 +13,84 @@
     <title>{{request.user}}'s cart</title>
   </head>
   <body>
-    <table class="cart-container">
-      <tr>
-        <td>SR. NO.</td>
-        <td>Name</td>
-        <td>Quantity</td>
-      </tr>
-      {% for data, cart_data in context_data %}
-      <tr>
-        <td>
-          {{forloop.counter}}
-          <input
-            type="hidden"
-            class="product_id"
-            name="product_id"
-            value="{{cart_data.product_id}}"
-          />
-        </td>
-        <td>{{data.cuisine_name}}</td>
-        <td>
-          <i class="fa-solid fa-minus"></i>
-          <div class="quantity">{{cart_data.quantity}}</div>
-          <i class="fa-solid fa-plus"></i>
-        </td>
-        <td>
-          <div class="remove"><i class="fa-solid fa-xmark"></i></div>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
-    <footer>
-      <a href="checkout/">Checkout</a>
-    </footer>
+    <form method="post">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>
+            The table will be booked in the name of <br />
+            <input
+              type="text"
+              value="{{user_data.first_name}} {{user_data.last_name}}"
+              placeholder="Full Name"
+              name="FullName"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="number"
+              placeholder="Phone number"
+              name="phone_number"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="number"
+              name="number_of_guests"
+              placeholder="Number of Guests"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Selected table accomodation:</td>
+          <td>{{table_data.table_accomodation_type}}</td>
+        </tr>
+        <tr>
+          <td>
+            <textarea
+              name="ExtraInstruction"
+              rows="8"
+              cols="22"
+              placeholder="Extra Instruction"></textarea>
+          </td>
+        </tr>
+      </table>
+      <h2>Order Details</h2>
+      <table class="cart-container">
+        <tr>
+          <td>SR. NO.</td>
+          <td>Name</td>
+          <td>Quantity</td>
+        </tr>
+        {% for data, cart_data in context_data %}
+        <tr>
+          <td>
+            {{forloop.counter}}
+            <input
+              type="hidden"
+              class="product_id"
+              name="product_id"
+              value="{{cart_data.product_id}}"
+            />
+          </td>
+          <td>{{data.cuisine_name}}</td>
+          <td>
+            <i class="fa-solid fa-minus"></i>
+            <div class="quantity">{{cart_data.quantity}}</div>
+            <i class="fa-solid fa-plus"></i>
+          </td>
+          <td>
+            <div class="remove"><i class="fa-solid fa-xmark"></i></div>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <button type="submit">Place Order</button>
+    </form>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function () {

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 class restaurants_data(models.Model):
   restaurant_name = models.CharField(max_length=30, unique=True)
@@ -28,3 +28,14 @@ class cuisine_data(models.Model):
   cuisine_price = models.BigIntegerField()
   cuisine_status = models.CharField(max_length=10)
   cuisine_restaurant_admin = models.CharField(max_length=30)
+
+
+class Order(models.Model):
+  User = models.CharField(max_length=50)
+  UserName = models.CharField(max_length=30, null=True)
+  PhoneNumber = models.CharField(max_length=15)
+  NumberOfGuests = models.IntegerField()
+  TableID = models.IntegerField()
+  ExtraInstruction = models.TextField(blank=True)
+  CreatedAt = models.DateTimeField(auto_now_add=True)
+  OrderStatus = models.CharField(max_length=50, default="Booked")

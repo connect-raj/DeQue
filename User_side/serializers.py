@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from Admin_Main.models import tables_data, cuisine_data
+from Admin_Main.models import tables_data, cuisine_data, Order
 from User_side.models import cart
 
 class TableSerializer(serializers.ModelSerializer):
@@ -17,4 +17,10 @@ class CuisinesSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
   class Meta:
     model = cart
+    fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Order
     fields = '__all__'

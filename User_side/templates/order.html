@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order's</title>
+  </head>
+  <body>
+    <header>
+      <div class="login-register">
+        <div class="signs">
+          <div class="mobile">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+          <div class="clock">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="sign-container">
+          <div class="login">
+            <a href="/logout">logout</a>
+            <a href="/order">Orders</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="sign-container">
+          <div class="signup">
+            <a href="/register">signup</a>
+          </div>
+          <div class="login">
+            <a href="/login">login</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <nav class="normal">
+        <div class="logo">DEQUE</div>
+        <ul class="nav-menu">
+          <li class="items"><a href="/home">Home</a></li>
+          <li class="items"><a href="/about">About</a></li>
+          <li class="items"><a href="/restaurants">Restaurants</a></li>
+          <li class="items"><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="button">
+          <a href="#" class="book-a-table"> Book a table </a>
+        </div>
+      </nav>
+    </header>
+    {% for order in order_data %} {{order}} {% endfor %}
+  </body>
+</html>

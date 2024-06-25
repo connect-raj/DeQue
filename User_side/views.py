@@ -14,8 +14,6 @@ from django.views.decorators.csrf import csrf_exempt
 # from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 
-SELECTED_TABLE_ID  = 0
-
 
 def signup(request):
   if request.method == "POST":
@@ -56,6 +54,12 @@ def user_login(request):
 def user_home(request):
    return render(request, 'home.html')
 
+def order(request):
+   order_data = Order.objects.filter(User= request.user.id, OrderStatus= "Booked")
+   context = {
+      'order_data' : order_data
+   }
+   return render(request, "order.html", context=context)
 
 def user_logout(request):
    logout(request)
@@ -83,9 +87,8 @@ def layout_restaurant(request, name ):
 
 def user_rest_cuisine(request, name, id):
     print(name, id)
-    global SELECTED_TABLE_ID
-    SELECTED_TABLE_ID = id
-    print(SELECTED_TABLE_ID)
+    request.session['SELECTED_TABLE_ID'] = int(id)
+    print(request.session['SELECTED_TABLE_ID'])
     # print(cart_data)
     cart_data = cart.objects.filter(user_name=request.user)
     item_data = []
@@ -213,43 +216,133 @@ def remove_cart(request):
    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
-def Cart(request):
+# def Checkout(request):
    
-  cart_data = cart.objects.filter(user_name=request.user)
+#   if request.method == "POST":
+#     Name = request.POST["FullName"]
+#     UserName = request.user
+#     PhoneNumber = request.POST["phone_number"]
+#     NumberOfGuests = request.POST["number_of_guests"]
+#     ExtraInstruction = request.POST["ExtraInstruction"]
+#     TableID = request.session.get('SELECTED_TABLE_ID',0)
 
-  data = []
+#     if TableID <= 0:
+#       return redirect('/home')
+#     else:
+#       data = {
+#         'User':Name,
+#         'UserName':UserName,
+#         'PhoneNumber':PhoneNumber,
+#         'NumberOfGuests':NumberOfGuests,
+#         'ExtraInstruction':ExtraInstruction,
+#         'TableID':TableID
+#       }
 
-  for items in cart_data:
-    data_ = cuisine_data.objects.filter(id=items.product_id).first()
-    if data_:
-      data.append(data_)
+#       serializer = OrderSerializer(data=data, many=True)
+#       if serializer.is_valid():
+#          serializer.save()
+#          table_data = tables_data.objects.get(id=TableID)
+#          table_data.table_status = "Reserved"
+#          table_data.save()
+#          cart_data = cart.objects.filter(user_name=request.user)
+#          for data in cart_data:
+#            data.status = "complete"
+#            data.save()
+#       else: 
+#          print(serializer.errors)
+  
+  
+#   #cart page template
+#   cart_data = cart.objects.filter(user_name=request.user)
 
-  context_data = zip(data, cart_data)
+#   data = []
 
-  context = {
-    "context_data" : context_data    
-  }
+#   for items in cart_data:
+#     data_ = cuisine_data.objects.filter(id=items.product_id).first()
+#     if data_:
+#       data.append(data_)
+
+#   context_data = zip(data, cart_data)
 
 
-  return render(request,"cart.html", context=context)
+#   if request.session['SELECTED_TABLE_ID'] <= 0:
+#      cart_data = cart.objects.filter(user_name=request.user, status="incomplete")
+#      for data in cart_data:
+#         data.delete()
+#      return redirect('/home')
+#   else:
+#      table_data = tables_data.objects.get(id=request.session['SELECTED_TABLE_ID'])
+#      user_data = User.objects.filter(username = request.user).first()
 
+
+#      context = {
+#        'user_data' : user_data,
+#        'table_data' : table_data,
+#        'context_data' : context_data
+#     }
+
+#      return render(request, "cart.html", context=context)
 
 def Checkout(request):
-   
-  if int(SELECTED_TABLE_ID) <= 0:
-     cart_data = cart.objects.filter(user_name=request.user, status="incomplete")
-     for data in cart_data:
-        data.delete
-     return redirect('/home')
-  else:
-     print(SELECTED_TABLE_ID)
-     table_data = tables_data.objects.get(id=SELECTED_TABLE_ID)
-     user_data = User.objects.filter(username = request.user).first()
+    if request.method == "POST":
+        UserName = request.POST["FullName"]
+        PhoneNumber = request.POST["phone_number"]
+        NumberOfGuests = request.POST["number_of_guests"]
+        ExtraInstruction = request.POST["ExtraInstruction"]
+        TableID = request.session.get('SELECTED_TABLE_ID', 0)
+        UserId = request.user.id
 
+        if TableID <= 0:
+            return redirect('/home')
+        else:
+            data = {
+                'User': UserId,
+                'UserName': UserName,
+                'PhoneNumber': PhoneNumber,
+                'NumberOfGuests': NumberOfGuests,
+                'ExtraInstruction': ExtraInstruction,
+                'TableID': TableID
+            }
 
-     context = {
-       'user_data' : user_data,
-       'table_data' : table_data
-    }
+            serializer = OrderSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                table_data = tables_data.objects.get(id=TableID)
+                table_data.table_status = "Reserved"
+                table_data.save()
+                cart_data = cart.objects.filter(user_name=request.user)
+                for item in cart_data:
+                    item.status = "complete"
+                    item.save()
+                return redirect('/home')  # Redirect after successful order placement
+            else:
+                print(serializer.errors)
+                return JsonResponse({'errors': serializer.errors}, status=400)
 
-     return render(request, "Checkout.html", context=context)
+    # Cart page template
+    cart_data = cart.objects.filter(user_name=request.user)
+    data = []
+
+    for item in cart_data:
+        data_ = cuisine_data.objects.filter(id=item.product_id).first()
+        if data_:
+            data.append(data_)
+
+    context_data = zip(data, cart_data)
+
+    if request.session.get('SELECTED_TABLE_ID', 0) <= 0:
+        cart_data = cart.objects.filter(user_name=request.user, status="incomplete")
+        for item in cart_data:
+            item.delete()
+        return redirect('/home')
+    else:
+        table_data = tables_data.objects.get(id=request.session['SELECTED_TABLE_ID'])
+        user_data = User.objects.filter(username=request.user).first()
+
+        context = {
+            'user_data': user_data,
+            'table_data': table_data,
+            'context_data': context_data
+        }
+
+        return render(request, "cart.html", context=context)

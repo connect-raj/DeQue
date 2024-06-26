@@ -96,28 +96,58 @@ body {
 }
 .restuarant-list {
   display: flex;
-  /* flex-direction: column; */
-  justify-content: space-around;
-  width: 90vw;
-  height: 100vh;
-  margin: 8% 5%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  margin-top: 5%;
 }
-.restuarant-list .card {
-  background-color: white;
-  padding: 2%;
-  width: 200px;
-  height: max-content;
-  box-shadow: 2px 2px 9px black;
-}
-.restuarant-list .card .Name {
-  font-size: 20px;
-}
-.restuarant-list .card .button {
-  background-color: black;
-  width: max-content;
-  padding: 5%;
-  border-radius: .25rem;
-}
-.restuarant-list .card .button a {
+
+.card {
+  background-color: #1a1814;
   color: white;
+  width: 300px;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card .image {
+  text-align: center;
+}
+
+.card .image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.card .Name {
+  font-size: 20px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.card .button {
+  text-align: center;
+}
+
+.card .button a {
+  background-color: #d9ba85;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card .button a:hover {
+  background-color: transparent;
+  color: #d9ba85;
 }

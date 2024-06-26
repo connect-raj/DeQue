@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      rel="shortcut icon"
+      href="/static/images/logo.jpg"
+      type="image/x-icon"
+    />
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -11,8 +16,295 @@
       referrerpolicy="no-referrer"
     />
     <title>{{request.user}}'s cart</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Reem Kufi", sans-serif;
+      }
+
+      body {
+        overflow-x: hidden;
+        background-color: #1a1814;
+        color: white;
+        padding: 100px 20px;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: "Reem Kufi";
+      }
+      body {
+        overflow-x: hidden;
+        background-image: url("/static/images/about-bg.jpg");
+        background-position: center;
+        background-size: cover;
+      }
+      ::-webkit-scrollbar {
+        background: none;
+        display: none;
+      }
+      a {
+        text-decoration: none;
+      }
+      header {
+        z-index: 999;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+      header .login-register {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        transition: all 2s ease;
+      }
+      header .login-register .signs {
+        display: flex;
+        gap: 10px;
+      }
+      header .login-register .signs i {
+        color: #d9ba85;
+      }
+      header .login-register .sign-container {
+        display: flex;
+        gap: 25px;
+      }
+      header .login-register .sign-container .login {
+        display: flex;
+        gap: 20%;
+      }
+      .normal {
+        background-color: rgba(0, 0, 0, 0.51);
+        width: 100vw;
+        padding: 1%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .sticky {
+        position: sticky;
+        top: 0;
+      }
+      nav .logo {
+        color: white;
+        font-size: 32px;
+      }
+      nav ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+      }
+      nav ul li a {
+        color: white;
+        font-size: 20px;
+      }
+      nav ul li a:hover {
+        color: #d9ba85;
+      }
+      nav .button a {
+        width: 100%;
+        background-color: transparent;
+        color: #d9ba85;
+        border: 1px solid #d9ba85;
+        padding: 10px 20px;
+        border-radius: 5px;
+        height: fit-content;
+        width: fit-content;
+        transition: color 2s, background-color 2s;
+      }
+      nav .button a:hover {
+        color: white;
+        background-color: #d9ba85;
+      }
+      .sign-container a {
+        color: #d9ba85;
+      }
+      .sign-container a:hover {
+        color: white;
+      }
+      /* 
+      header {
+        z-index: 999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      header .normal {
+        width: 100%;
+        padding: 1%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav .logo {
+        color: white;
+        font-size: 32px;
+      }
+
+      nav ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+      }
+
+      nav ul li a {
+        color: white;
+        font-size: 20px;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        color: #d9ba85;
+      }
+
+      nav .button a {
+        color: #d9ba85;
+        border: 1px solid #d9ba85;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: color 0.3s, background-color 0.3s;
+      }
+
+      nav .button a:hover {
+        color: white;
+        background-color: #d9ba85;
+      }
+ */
+      form {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+      }
+
+      table td,
+      table th {
+        padding: 10px;
+        border: 1px solid #d9ba85;
+        text-align: left;
+      }
+
+      table th {
+        background-color: #2a2723;
+        text-align: center;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #d9ba85;
+        border-radius: 5px;
+        background-color: #1a1814;
+        color: white;
+      }
+
+      button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #d9ba85;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #b8956d;
+      }
+
+      .cart-container {
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .cart-container th,
+      .cart-container td {
+        padding: 10px;
+        border: 1px solid #d9ba85;
+        text-align: center;
+      }
+
+      .quantity {
+        display: inline-block;
+        width: 30px;
+        text-align: center;
+      }
+
+      .fa-plus,
+      .fa-minus,
+      .fa-xmark {
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .fa-plus:hover,
+      .fa-minus:hover,
+      .fa-xmark:hover {
+        color: #d9ba85;
+      }
+    </style>
   </head>
   <body>
+    <header>
+      <div class="login-register">
+        <div class="signs">
+          <div class="mobile">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+          <div class="clock">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="sign-container">
+          <div class="login">
+            <a href="/logout">logout</a>
+            <a href="/order">Orders</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="sign-container">
+          <div class="signup">
+            <a href="/register">signup</a>
+          </div>
+          <div class="login">
+            <a href="/login">login</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <nav class="normal">
+        <div class="logo">DEQUE</div>
+        <ul class="nav-menu">
+          <li class="items"><a href="/home">Home</a></li>
+          <li class="items"><a href="/about">About</a></li>
+          <li class="items"><a href="/restaurants">Restaurants</a></li>
+          <li class="items"><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="button">
+          <a href="#" class="book-a-table"> Book a table </a>
+        </div>
+      </nav>
+    </header>
     <form method="post">
       {% csrf_token %}
       <table>
@@ -46,8 +338,10 @@
           </td>
         </tr>
         <tr>
-          <td>Selected table accomodation:</td>
-          <td>{{table_data.table_accomodation_type}}</td>
+          <td>
+            Selected table
+            accomodation:&ensp;&ensp;{{table_data.table_accomodation_type}}
+          </td>
         </tr>
         <tr>
           <td>
@@ -55,7 +349,8 @@
               name="ExtraInstruction"
               rows="8"
               cols="22"
-              placeholder="Extra Instruction"></textarea>
+              placeholder="Extra Instruction"
+            ></textarea>
           </td>
         </tr>
       </table>
@@ -65,6 +360,7 @@
           <td>SR. NO.</td>
           <td>Name</td>
           <td>Quantity</td>
+          <td>Action</td>
         </tr>
         {% for data, cart_data in context_data %}
         <tr>
@@ -91,6 +387,7 @@
       </table>
       <button type="submit">Place Order</button>
     </form>
+    <script src="/static/js/header.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function () {

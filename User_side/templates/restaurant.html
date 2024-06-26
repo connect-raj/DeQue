@@ -12,6 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script src="/static/js/header.js"></script>
   </head>
   <body>
     <header>
@@ -75,3 +76,61 @@
     </div>
   </body>
 </html>
+<style>
+  /* Container Styling */
+  .container {
+    padding: 5% 10%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+  }
+
+  .container .img img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .container .name {
+    font-size: 30px;
+    margin: 20px 0;
+  }
+
+  .container .phone-number,
+  .container .address,
+  .container .price-approx {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  .container .address i,
+  .container .price-approx i {
+    margin-right: 10px;
+  }
+
+  .container .booking-button a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #d9ba85;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .container .booking-button a:hover {
+    background-color: #b8956d;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    header,
+    nav.normal {
+      flex-direction: column;
+    }
+
+    .nav-menu {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+</style>

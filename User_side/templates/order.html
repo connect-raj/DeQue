@@ -4,6 +4,218 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order's</title>
+    <link
+      rel="shortcut icon"
+      href="/static/images/logo.jpg"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: "Reem Kufi";
+      }
+      body {
+        overflow-x: hidden;
+        background-image: url("/static/images/about-bg.jpg");
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+      ::-webkit-scrollbar {
+        background: none;
+        display: none;
+      }
+      a {
+        text-decoration: none;
+      }
+      header {
+        z-index: 999;
+        position: fixed;
+        top: 0;
+      }
+      header .login-register {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        transition: all 2s ease;
+      }
+      header .login-register .signs {
+        display: flex;
+        gap: 10px;
+      }
+      header .login-register .signs i {
+        color: #d9ba85;
+      }
+      header .login-register .sign-container {
+        display: flex;
+        gap: 25px;
+      }
+      header .login-register .sign-container .login {
+        display: flex;
+        gap: 20%;
+      }
+      .normal {
+        background-color: rgba(0, 0, 0, 0.51);
+        width: 100vw;
+        padding: 1%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .sticky {
+        position: sticky;
+        top: 0;
+      }
+      nav .logo {
+        color: white;
+        font-size: 32px;
+      }
+      nav ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+      }
+      nav ul li a {
+        color: white;
+        font-size: 20px;
+      }
+      nav ul li a:hover {
+        color: #d9ba85;
+      }
+      nav .button a {
+        width: 100%;
+        background-color: transparent;
+        color: #d9ba85;
+        border: 1px solid #d9ba85;
+        padding: 10px 20px;
+        border-radius: 5px;
+        height: fit-content;
+        width: fit-content;
+        transition: color 2s, background-color 2s;
+      }
+      nav .button a:hover {
+        color: white;
+        background-color: #d9ba85;
+      }
+      .sign-container a {
+        color: #d9ba85;
+      }
+      .sign-container a:hover {
+        color: white;
+      }
+      /* .order-container {
+        margin: 120px auto;
+        width: 90%;
+        max-width: 1200px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .order-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      .order-table th,
+      .order-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      .order-table th {
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      .order-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      .tables {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .chairs {
+        display: flex;
+        gap: 5px;
+      }
+      .fa-chair {
+        color: #333;
+      } */
+      /* Add these styles to the bottom of your existing home.css file */
+
+      /* Order Page Styles */
+      .order-container {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 10px;
+        margin: 10rem auto;
+        max-width: 90%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .order-container h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+
+      th,
+      td {
+        padding: 0.75rem;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f4f4f4;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        background-color: #d9ba85;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #b6956c;
+      }
+      .action-button {
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+    <script src="/static/js/header.js"></script>
   </head>
   <body>
     <header>
@@ -47,6 +259,88 @@
         </div>
       </nav>
     </header>
-    {% for order in order_data %} {{order}} {% endfor %}
+
+    <div class="order-container">
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>SR NO.</th>
+            <th>Table</th>
+            <th>Accommodation</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1.</td>
+            <td>
+              {% if table_data.table_accomodation_type == 12 %}
+              <div class="tables">
+                <div>
+                  <div class="chairs">
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                  </div>
+                  <div class="table"></div>
+                  <div class="chairs">
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                  </div>
+                </div>
+              </div>
+              {% elif table_data.table_accomodation_type == 8 %}
+              <div class="tables">
+                <div>
+                  <div class="chairs">
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                  </div>
+                  <div class="table"></div>
+                  <div class="chairs">
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <div class="tables">
+                <div>
+                  <div class="chairs">
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                  </div>
+                  <div class="table"></div>
+                  <div class="chairs">
+                    <i class="fa-solid fa-chair"></i>
+                    <i class="fa-solid fa-chair"></i>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </td>
+            <td>{{table_data.table_accomodation_type}}</td>
+            <td>
+              <button class="action-button btn">Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="/restaurants" class="btn">Place New Order</a>
+    </div>
+    <script>
+      $(document).ready();
+    </script>
   </body>
 </html>

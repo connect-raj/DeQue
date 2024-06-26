@@ -50,5 +50,88 @@
     {% if user.is_authenticated %}
     <div class="welcome">Welcome!you're logged in as {{request.user}}</div>
     {%endif%}
+    <div class="container">
+        <div class="cuisines">
+          <div class="title">Total User's:</div>
+          {{user_data}}
+        </div>
+        <div class="tables">
+          <div class="title">Total Restaurant's:</div>
+          {{restaurant_data}}
+        </div>
+      </div>
+      <div class="container">
+        <div class="cuisines">
+          <div class="title">Active User's:</div>
+          {{active_user_data}}
+        </div>
+        <div class="tables">
+          <div class="title">Active Restaurant's:</div>
+          {{active_restaurant_data}}
+        </div>
+      </div>
+    </div>
   </body>
+  <style>
+    body {
+      background-color: #1a1814;
+      font-family: "Reem Kufi", sans-serif;
+      margin: 0;
+    }
+
+    .btn-outline-danger {
+      border-color: #d9534f;
+      color: #d9534f;
+    }
+
+    .btn-outline-danger:hover {
+      background-color: #d9534f;
+      color: white;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #d9ba85;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .cuisines, .tables {
+      padding: 20px;
+      border-radius: 5px;
+      color: black;
+    }
+
+    .cuisines {
+      background-color: orange;
+      border-bottom: 4px solid orangered;
+    }
+
+    .tables {
+      background-color: blue;
+      border-bottom: 4px solid navy;
+    }
+
+    .title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .cuisines, .tables {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
 </html>

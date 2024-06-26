@@ -39,7 +39,7 @@ header .login-register .sign-container {
   display: flex;
   gap: 25px;
 }
-header .login-register .sign-container .login{
+header .login-register .sign-container .login {
   display: flex;
   gap: 20%;
 }
@@ -242,4 +242,66 @@ nav .button a:hover {
 }
 .why-us .cards .card .subtitle {
   font-size: 18px;
+}
+.testimonials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5% 0;
+}
+.testimonials .main-container {
+  width: 70%;
+}
+.testimonials .main {
+  text-align: center;
+  margin-bottom: 2%;
+}
+.testimonials .main .title {
+  text-transform: uppercase;
+  color: gainsboro;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+.testimonials .main .title::after {
+  content: "";
+  height: 2px;
+  width: 100%;
+  background-color: gainsboro;
+  display: block;
+  margin-top: 1%;
+}
+.testimonials .title {
+  font-size: 40px;
+  color: #d9ba85;
+  margin-bottom: 40px;
+}
+.testimonials .cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.testimonials .card {
+  background-color: #1a1814;
+  width: 350px;
+  padding: 20px;
+  transition: 0.3s ease-in-out;
+  text-align: center;
+  border-radius: 10px;
+}
+.testimonials .card:hover {
+  background-color: #d9ba85;
+  color: white;
+}
+.testimonials .card .tagline {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.testimonials .card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
 }

@@ -55,9 +55,12 @@ def user_home(request):
    return render(request, 'home.html')
 
 def order(request):
-   order_data = Order.objects.filter(User= request.user.id, OrderStatus= "Booked")
+   order_data = Order.objects.filter(User= request.user.id, OrderStatus= "Booked").first()
+   table_data = tables_data.objects.get(id= order_data.TableID)
+
    context = {
-      'order_data' : order_data
+      'order_data' : order_data,
+      'table_data' : table_data
    }
    return render(request, "order.html", context=context)
 
@@ -68,6 +71,9 @@ def user_logout(request):
 # @login_required
 def user_restaurant(request):
   return render(request, "restaurants_page.html")
+
+def about(request):
+   return render(request, "about.html")
 
 # @login_required
 def restaurant_page(request, name):

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>About Deque</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: "Reem Kufi";
+      }
+      body {
+        overflow-x: hidden;
+        background-image: url("/static/images/about-bg.jpg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      ::-webkit-scrollbar {
+        background: none;
+        display: none;
+      }
+      a {
+        text-decoration: none;
+      }
+      header {
+        z-index: 999;
+        position: fixed;
+        top: 0;
+      }
+      header .login-register {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        transition: all 2s ease;
+      }
+      header .login-register .signs {
+        display: flex;
+        gap: 10px;
+      }
+      header .login-register .signs i {
+        color: #d9ba85;
+      }
+      header .login-register .sign-container {
+        display: flex;
+        gap: 25px;
+      }
+      header .login-register .sign-container .login {
+        display: flex;
+        gap: 20%;
+      }
+      .normal {
+        background-color: rgba(0, 0, 0, 0.51);
+        width: 100vw;
+        padding: 1%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .sticky {
+        position: sticky;
+        top: 0;
+      }
+      nav .logo {
+        color: white;
+        font-size: 32px;
+      }
+      nav ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+      }
+      nav ul li a {
+        color: white;
+        font-size: 20px;
+      }
+      nav ul li a:hover {
+        color: #d9ba85;
+      }
+      nav .button a {
+        width: 100%;
+        background-color: transparent;
+        color: #d9ba85;
+        border: 1px solid #d9ba85;
+        padding: 10px 20px;
+        border-radius: 5px;
+        height: fit-content;
+        width: fit-content;
+        transition: color 2s, background-color 2s;
+      }
+      nav .button a:hover {
+        color: white;
+        background-color: #d9ba85;
+      }
+      .sign-container a {
+        color: #d9ba85;
+      }
+      .sign-container a:hover {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="login-register">
+          <div class="signs">
+            <div class="mobile">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+            <div class="clock">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+          </div>
+          {% if user.is_authenticated %}
+          <div class="sign-container">
+            <div class="login">
+              <a href="/logout">logout</a>
+              <a href="/order">Orders</a>
+            </div>
+          </div>
+          {% else %}
+          <div class="sign-container">
+            <div class="signup">
+              <a href="/register">signup</a>
+            </div>
+            <div class="login">
+              <a href="/login">login</a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <nav class="normal">
+          <div class="logo">DEQUE</div>
+          <ul class="nav-menu">
+            <li class="items"><a href="/home">Home</a></li>
+            <li class="items"><a href="/about">About</a></li>
+            <li class="items"><a href="/restaurants">Restaurants</a></li>
+            <li class="items"><a href="/contact">Contact</a></li>
+          </ul>
+          <div class="button">
+            <a href="#" class="book-a-table"> Book a table </a>
+          </div>
+        </nav>
+      </header>
+
+      <section class="about">
+        <h1 class="about-header">About US</h1>
+        <div class="about-content">
+          <img
+            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?fit=crop&w=800&h=533&q=80"
+            alt="Restaurant Queue"
+          />
+          <p class="about-text">
+            Welcome to DeQue, your ultimate restaurant queue management system.
+            We are dedicated to providing seamless and efficient solutions for
+            managing restaurant queues, ensuring a smooth and enjoyable
+            experience for both customers and staff. With DeQue, you can
+            minimize wait times, optimize table turnover, and enhance overall
+            customer satisfaction.
+          </p>
+          <img
+            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?fit=crop&w=800&h=533&q=80"
+            alt="Happy Customers"
+          />
+          <p class="about-text">
+            Our system is designed to be user-friendly and highly customizable
+            to meet the unique needs of any restaurant. Whether you're running a
+            small café or a large dining establishment, DeQue provides the tools
+            you need to streamline your operations and keep your customers
+            happy.
+          </p>
+          <img
+            src="https://images.unsplash.com/photo-1565294124520-12ded47f2b30?fit=crop&w=800&h=533&q=80"
+            alt=""
+          />
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>&copy; 2024 Deque. All rights reserved.</p>
+      </footer>
+      <script src="/static/js/header.js"></script>
+    </div>
+  </body>
+</html>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+
+  * {
+    padding: 0;
+    margin: 0;
+    font-family: "Reem Kufi", sans-serif;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: #1a1814;
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  header {
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  header .normal {
+    width: 100%;
+    padding: 1%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav .logo {
+    color: white;
+    font-size: 32px;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+
+  nav ul li a {
+    color: white;
+    font-size: 20px;
+  }
+
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: #d9ba85;
+  }
+
+  nav .button a {
+    color: #d9ba85;
+    border: 1px solid #d9ba85;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: color 0.3s, background-color 0.3s;
+  }
+
+  nav .button a:hover {
+    color: white;
+    background-color: #d9ba85;
+  }
+
+  .about {
+    padding: 100px 20px 50px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+  }
+
+  .about-header {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 36px;
+    color: #d9ba85;
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .about-content img {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .about-text {
+    max-width: 800px;
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: center;
+  }
+</style>

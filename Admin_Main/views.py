@@ -27,7 +27,21 @@ from .models import *
 
 # @login_required('home/')
 def admin_home(request):
-  return render(request, 'admin_home.html')
+
+  user_data = User.objects.all().count()
+  restaurant_data = restaurants_data.objects.all().count()
+
+  active_user_data = User.objects.filter(is_active=1).count()
+  active_restaurant_data = restaurants_data.objects.filter(restaurant_status="open").count()
+
+  context = {
+     'user_data' : user_data,
+     'restaurant_data' : restaurant_data,
+     'active_user_data' : active_user_data,
+     'active_restaurant_data' : active_restaurant_data
+  }
+
+  return render(request, 'admin_home.html', context=context)
 
 def admin_restaurant_list(request):
   return render(request, 'restaurant_page.html')

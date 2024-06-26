@@ -1,0 +1,139 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+/* Header Styling */
+header {
+  background-color: #1a1814;
+  color: white;
+  padding: 10px 20px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+nav .nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav .nav-menu .items a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav .nav-menu .items a:hover,
+nav .nav-menu .items a.active {
+  background-color: #d9ba85;
+  color: black;
+}
+
+nav .button a.book-a-table {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #d9ba85;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav .button a.book-a-table:hover {
+  background-color: #b8956d;
+}
+
+/* About Section Styling */
+.about-section {
+  padding: 5% 10%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.about-text h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.about-text p {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.about-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.about-images img {
+  width: 250px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Footer Styling */
+footer {
+  background-color: #1a1814;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  header,
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .nav-menu .items a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .button {
+    margin-top: 10px;
+  }
+
+  .about-container {
+    align-items: flex-start;
+  }
+
+  .about-images img {
+    width: 100%;
+    height: auto;
+  }
+}

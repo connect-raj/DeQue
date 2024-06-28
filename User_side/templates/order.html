@@ -255,7 +255,7 @@
           <li class="items"><a href="/contact">Contact</a></li>
         </ul>
         <div class="button">
-          <a href="#" class="book-a-table"> Book a table </a>
+          <a href="/restaurants" class="book-a-table"> Book a table </a>
         </div>
       </nav>
     </header>
@@ -271,10 +271,11 @@
           </tr>
         </thead>
         <tbody>
+          {% for order, table in order_table_pairs %}
           <tr>
-            <td>1.</td>
+            <td>{{forloop.counter}}</td>
             <td>
-              {% if table_data.table_accomodation_type == 12 %}
+              {% if table.table_accomodation_type == 12 %}
               <div class="tables">
                 <div>
                   <div class="chairs">
@@ -296,7 +297,7 @@
                   </div>
                 </div>
               </div>
-              {% elif table_data.table_accomodation_type == 8 %}
+              {% elif table.table_accomodation_type == 8 %}
               <div class="tables">
                 <div>
                   <div class="chairs">
@@ -330,17 +331,18 @@
               </div>
               {% endif %}
             </td>
-            <td>{{table_data.table_accomodation_type}}</td>
+            <td>{{table.table_accomodation_type}}</td>
             <td>
-              <button class="action-button btn">Cancel</button>
+              <a href="/cancel/{{order.id}}" class="action-button btn"
+                >Cancel</a
+              >
+              <a href="/queue/{{order.id}}" class="action-button btn">Enter</a>
             </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
       <a href="/restaurants" class="btn">Place New Order</a>
     </div>
-    <script>
-      $(document).ready();
-    </script>
   </body>
 </html>

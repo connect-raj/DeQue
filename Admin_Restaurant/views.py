@@ -1,11 +1,9 @@
 from django.shortcuts import redirect, render
-from Admin_Main.models import restaurants_data
+from Admin_Main.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
-from django.contrib.auth.decorators import login_required
 from .serializer import *
 from django.http import HttpResponse
 
@@ -50,11 +48,16 @@ def res_login(request):
 
 ##admin home page
 def rest_home(request):
-  total_cuisines = len(cuisine_data.objects.filter(cuisine_restaurant_admin = request.user,cuisine_status = 'active'))
-  total_tables = len(tables_data.objects.filter(table_owner = request.user))
+  total_cuisines = cuisine_data.objects.filter(cuisine_restaurant_admin = request.user,cuisine_status = 'active').count()
+  total_tables = tables_data.objects.filter(table_owner = request.user).count()
+  tables = tables_data.objects.filter(table_owner=request.user.username)
+  table_ids = [table.id for table in tables]
+  total_orders = Order.objects.filter(TableID__in=table_ids).count()
+  
   context = {
     "total_cuisines" : total_cuisines,
-    "total_tables" : total_tables
+    "total_tables" : total_tables,
+    "total_orders" : total_orders
   }
   return render(request, 'home_restadmin.html', context=context)
 
@@ -130,6 +133,34 @@ def get_cuisines(request):
   serializer = CuisineSerializers(cuisines, many=True)
   return Response(serializer.data)
 ## End of Cuisine Views
+
+##Order Views Start here
+
+def rest_orders(request):
+    # Get tables owned by the current restaurant admin
+    tables = tables_data.objects.filter(table_owner=request.user.username)
+    table_ids = [table.id for table in tables]
+
+    # Filter orders that match these table IDs
+    orders = Order.objects.filter(TableID__in=table_ids)
+    data = []
+    data2 = []
+
+    message = 'Hey! This message is to inform that your Table will be ready in 30mins,we hope you reach their by the time being' 
+
+    for order in orders:
+        queryset = tables_data.objects.get(id=order.TableID)
+        data.append(queryset)
+        data2.append(order)
+
+    context = {
+        'dataset': zip(data2, data),
+        'message': message
+    }
+
+    return render(request, "adminrest_order.html", context=context)
+
+## End of Order Views
 
 ##Table Views Start here
 def rest_table_view(request):

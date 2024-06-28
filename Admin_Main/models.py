@@ -39,3 +39,11 @@ class Order(models.Model):
   ExtraInstruction = models.TextField(blank=True)
   CreatedAt = models.DateTimeField(auto_now_add=True)
   OrderStatus = models.CharField(max_length=50, default="Booked")
+  Date = models.CharField(max_length=50, blank=False, default=0)
+  Time = models.CharField(max_length=50, blank=False, default=0)
+
+
+class Contact(models.Model):
+  Name = models.CharField(max_length=30)
+  EMail = models.CharField(max_length=50)
+  Message = models.CharField(max_length=500)

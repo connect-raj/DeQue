@@ -5,6 +5,7 @@ urlpatterns = [
   path('admin-rest/login/', res_login, name="res_login"),
   path('admin-rest/logout/', res_logout, name="res_logout"),
   path('admin-rest/home/', rest_home, name="rest_home"),
+  path('admin-rest/orders/', rest_orders, name="rest_orders"),
   path('admin-rest/cuisines/', rest_cuisines, name="rest_cuisines"),
   path('admin-rest/cuisines/add', add_cuisines, name="rest_cuisines"),
   path('admin-rest/cuisines/Activate/<id>', status_activate, name="status_activate"),

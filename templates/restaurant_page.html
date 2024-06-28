@@ -77,18 +77,18 @@
             for (var row = 0; row < row_length; row++) {
               table += `<tr>`;
               for (var col = 0; col < 1; col++) {
-                // table += `<td>${data_json[row]["id"]}</td>`;
                 table += `<td>${data_json[row]["restaurant_name"]}</td>`;
                 table += `<td>${data_json[row]["restaurant_admin"]}</td>`;
                 table += `<td>${data_json[row]["restaurant_password"]}</td>`;
-                // table += `<td>${data_json[row]["restaurant_phone_number"]}</td>`;
                 table += `<td>${data_json[row]["restaurant_address"]}</td>`;
                 table += `<td>${data_json[row]["restaurant_email"]}</td>`;
-                // table += `<td>${data_json[row]["restaurant_image"]}</td>`;
                 table += `<td>${data_json[row]["restaurant_status"]}</td>`;
-                // table += `<td>${data_json[row]["restaurant_activity"]}</td>`;
                 if (data_json[row]["restaurant_activity"] == false) {
+                  let message = `
+                    E-mail: ${data_json[row]["restaurant_email"]},
+                    password: ${data_json[row]["restaurant_password"]}`;
                   table += `<td><a href="Activate/${data_json[row]["id"]}/" class="btn btn-outline-danger">activate</a></td>`;
+                  table += `<td><a href="https://wa.me/+91${data_json[row]["restaurant_phone_number"]}?text=${message}/" class="btn btn-outline-danger">activate</a></td>`;
                 } else {
                   if (data_json[row]["restaurant_status"] == "open")
                     table += `<td><a href="close/${data_json[row]["id"]}"class="btn btn-danger">Close</a>
@@ -98,7 +98,6 @@
                     table += `<td><a href="open/${data_json[row]["id"]}" class="btn btn-success">Open</a>
                       <a href="Update/${data_json[row]["id"]}" class="btn btn-warning">update</a>
                       </td>`;
-                  // table += `<td><a href="Update/${data_json[row]["id"]}" class="btn btn-outline-danger">update</a></td>`;
                 }
               }
             }

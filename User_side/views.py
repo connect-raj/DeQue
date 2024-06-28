@@ -55,14 +55,21 @@ def user_home(request):
    return render(request, 'home.html')
 
 def order(request):
-   order_data = Order.objects.filter(User= request.user.id, OrderStatus= "Booked").first()
-   table_data = tables_data.objects.get(id= order_data.TableID)
+   order_data = Order.objects.filter(User= request.user.id, OrderStatus= "Booked")
+   table_data = []
 
-   context = {
-      'order_data' : order_data,
-      'table_data' : table_data
-   }
-   return render(request, "order.html", context=context)
+   for order in order_data:
+     data = tables_data.objects.get(id=order.TableID)
+     table_data.append(data)
+  
+   context = {'order_table_pairs': zip(order_data, table_data)}
+
+   return render(request, "order.html", context)
+
+def queue(request, id):
+   order_data = Order.objects.get(id=id)
+
+   order_data.OrderStatus = "Entered"
 
 def user_logout(request):
    logout(request)
@@ -74,6 +81,17 @@ def user_restaurant(request):
 
 def about(request):
    return render(request, "about.html")
+
+def contact(request):
+  
+  if request.method == "POST":
+    
+    queryset = Contact.objects.create(Name = request.POST["Name"],EMail = request.POST["Email"],Message = request.POST["Message"])
+    queryset.save()
+
+    return redirect('/home/')
+
+  return render(request, "contact.html")
 
 # @login_required
 def restaurant_page(request, name):
@@ -222,73 +240,6 @@ def remove_cart(request):
    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
-# def Checkout(request):
-   
-#   if request.method == "POST":
-#     Name = request.POST["FullName"]
-#     UserName = request.user
-#     PhoneNumber = request.POST["phone_number"]
-#     NumberOfGuests = request.POST["number_of_guests"]
-#     ExtraInstruction = request.POST["ExtraInstruction"]
-#     TableID = request.session.get('SELECTED_TABLE_ID',0)
-
-#     if TableID <= 0:
-#       return redirect('/home')
-#     else:
-#       data = {
-#         'User':Name,
-#         'UserName':UserName,
-#         'PhoneNumber':PhoneNumber,
-#         'NumberOfGuests':NumberOfGuests,
-#         'ExtraInstruction':ExtraInstruction,
-#         'TableID':TableID
-#       }
-
-#       serializer = OrderSerializer(data=data, many=True)
-#       if serializer.is_valid():
-#          serializer.save()
-#          table_data = tables_data.objects.get(id=TableID)
-#          table_data.table_status = "Reserved"
-#          table_data.save()
-#          cart_data = cart.objects.filter(user_name=request.user)
-#          for data in cart_data:
-#            data.status = "complete"
-#            data.save()
-#       else: 
-#          print(serializer.errors)
-  
-  
-#   #cart page template
-#   cart_data = cart.objects.filter(user_name=request.user)
-
-#   data = []
-
-#   for items in cart_data:
-#     data_ = cuisine_data.objects.filter(id=items.product_id).first()
-#     if data_:
-#       data.append(data_)
-
-#   context_data = zip(data, cart_data)
-
-
-#   if request.session['SELECTED_TABLE_ID'] <= 0:
-#      cart_data = cart.objects.filter(user_name=request.user, status="incomplete")
-#      for data in cart_data:
-#         data.delete()
-#      return redirect('/home')
-#   else:
-#      table_data = tables_data.objects.get(id=request.session['SELECTED_TABLE_ID'])
-#      user_data = User.objects.filter(username = request.user).first()
-
-
-#      context = {
-#        'user_data' : user_data,
-#        'table_data' : table_data,
-#        'context_data' : context_data
-#     }
-
-#      return render(request, "cart.html", context=context)
-
 def Checkout(request):
     if request.method == "POST":
         UserName = request.POST["FullName"]
@@ -297,6 +248,8 @@ def Checkout(request):
         ExtraInstruction = request.POST["ExtraInstruction"]
         TableID = request.session.get('SELECTED_TABLE_ID', 0)
         UserId = request.user.id
+        Date = request.POST["Date"]
+        Time = request.POST["Time"]
 
         if TableID <= 0:
             return redirect('/home')
@@ -307,7 +260,9 @@ def Checkout(request):
                 'PhoneNumber': PhoneNumber,
                 'NumberOfGuests': NumberOfGuests,
                 'ExtraInstruction': ExtraInstruction,
-                'TableID': TableID
+                'TableID': TableID,
+                'Date': Date,
+                'Time': Time
             }
 
             serializer = OrderSerializer(data=data)
@@ -352,3 +307,9 @@ def Checkout(request):
         }
 
         return render(request, "cart.html", context=context)
+    
+
+def cancel(request, id):
+  order_data = Order.objects.get(id=id)
+  order_data.delete()
+  return redirect('/order/')
